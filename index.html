@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Bank Interest Rate Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet"> <!-- Importing Tailwind CSS -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Importing Chart.js -->
+    </head>
+    <body class="bg-gray-100 text-center py-12">
+        <h2 class="text-4xl font-bold mb-8">Bank Interest Rate Dashboard</h2>
+        <div class="w-full max-w-2xl mx-auto">
+            <canvas id="interestRateChart"></canvas> <!-- Canvas for chart -->
+        </div>
+        <script>
+            fetch('http://127.0.0.1:8000/data.json') // replace with the path to your JSON file if different
+                .then(response => response.json())
+                .then(data => {
+                    var ctx = document.getElementById('interestRateChart').getContext('2d');
+                    var interestRateChart = new Chart(ctx, {
+                        type: 'line', // Line chart
+                        data: data,
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Interest Rate over Time'
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+        </script>
+    </body>
+</html>
